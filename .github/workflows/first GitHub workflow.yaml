@@ -1,0 +1,17 @@
+name: new
+on:
+    push:
+        branches:
+            - "main"
+
+jobs:
+    first-workflow-job:
+        name: first job
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout action
+              uses: actions/checkout@v4
+
+            - name:  run command 
+              run: 'mvn clean package'
+              shell: bash

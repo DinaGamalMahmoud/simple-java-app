@@ -1,18 +1,6 @@
 name: ci workflow
 on:
-  pull_request: 
-    branches: 
-      -"main"
-
-
   push: 
-    branches: 
-      -"main"
-
-  repository_dispatch: 
-    types:
-      - "build"
-      
 jobs:
   ci-workflow:
     name: ci workflow

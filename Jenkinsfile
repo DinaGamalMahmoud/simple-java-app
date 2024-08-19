@@ -14,7 +14,7 @@ pipeline{
         stage('push'){
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'Password', usernameVariable: 'Username')]) {
+                    withCredentials([usernamePassword(credentialsId: 'Docker_account', passwordVariable: 'Password', usernameVariable: 'Username')]) {
                     sh 'docker login --username $Username --password $Password'
                     sh 'docker tag java-app $Username/java-app'
                     sh 'docker push $Username/java-app'

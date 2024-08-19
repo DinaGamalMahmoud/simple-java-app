@@ -6,7 +6,7 @@ pipeline{
         stage('build'){
             steps{
                 script{
-                    sh 'sudo docker build -t aladdintaijandev/java-app .'
+                    sh 'sudo docker build -t java-app .'
                 }
             }
         }
@@ -15,9 +15,10 @@ pipeline{
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: 'Docker_account', passwordVariable: 'Password', usernameVariable: 'Username')]) {
-                    sh 'sudo docker tag java-app $Username/java-app:latest'
+                    sh 'docker logout'
+                    sh 'sudo docker tag java-app $Username/java-app:v1'
                     sh 'docker login --username $Username --password $Password docker.io'
-                    sh 'sudo  docker --debug push $Username/java-app:latest'
+                    sh 'sudo  docker --debug push $Username/java-app:v1'
                     }
                 }
             }

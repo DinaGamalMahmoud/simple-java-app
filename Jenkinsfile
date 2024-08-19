@@ -19,7 +19,7 @@ pipeline{
                     sh 'sudo docker tag java-app $Username/java-app:latest'
                     sh 'sudo docker logout'
                     sh 'docker login --username $Username --password $Password'
-                    sh 'sudo --debug docker push $Username/java-app:latest'
+                    sh 'sudo  docker --debug push $Username/java-app:latest'
                     }
                 }
             }

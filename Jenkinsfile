@@ -6,7 +6,7 @@ pipeline{
         stage('build'){
             steps{
                 script{
-                    sh 'sudo docker build -t java-app .'
+                    sh 'sudo docker build -t aladdintaijandev/java-app .'
                 }
             }
         }

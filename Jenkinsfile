@@ -15,10 +15,8 @@ pipeline{
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: 'Docker_account', passwordVariable: 'Password', usernameVariable: 'Username')]) {
-                    sh 'docker login --username $Username --password $Password'
                     sh 'sudo docker tag java-app $Username/java-app:latest'
-                    sh 'sudo docker logout'
-                    sh 'docker login --username $Username --password $Password'
+                    sh 'docker login --username $Username --password $Password docker.io'
                     sh 'sudo  docker --debug push $Username/java-app:latest'
                     }
                 }

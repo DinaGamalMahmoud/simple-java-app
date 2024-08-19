@@ -18,7 +18,7 @@ pipeline{
                     sh 'docker logout'
                     sh 'sudo docker tag java-app $Username/java-app:v1'
                     sh 'docker login --username $Username --password $Password docker.io'
-                    sh 'sudo  docker --debug push $Username/java-app:v1'
+                    sh 'sudo  docker push $Username/java-app:v1'
                     }
                 }
             }

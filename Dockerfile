@@ -5,4 +5,5 @@ RUN mvn -f /app/pom.xml clean package
 
 RUN mv /app/target/*.jar app.jar
 
+RUN echo "test sth"
 ENTRYPOINT ["java","-jar","/app.jar"]

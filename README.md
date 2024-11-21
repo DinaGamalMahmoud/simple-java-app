@@ -5,7 +5,3 @@
 ```mvn clean package```
 
 ### Run Tests
-```mvn test
-
-
-test

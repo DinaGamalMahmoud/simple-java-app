@@ -1,0 +1,16 @@
+name: workflow
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  ci-update-workflow-job:
+    name: clean
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout actions
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        run:  mvn clean package
+        

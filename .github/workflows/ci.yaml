@@ -15,7 +15,7 @@ jobs:
             - name: Checkout Code
               uses: actions/checkout@v3
 
-            - name: Build and Package
+            - name: Build and Packageg
               run: mvn clean package
 
    

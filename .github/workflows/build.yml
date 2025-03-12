@@ -1,17 +1,15 @@
-name: Java Build Workflow
+name: first-workflow
 on:
-  push:
+  push: 
     branches:
       - "main"
-
+  pull_request: 
+    branches:
+      - "main"
+  schedule:
+    - cron: "*/5 * * * *"
 jobs:
-    First-workflow-job:
-        name: first job
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout steps
-              uses: actions/checkout@v4
-                
-            - name: run maven
-              run: mvn clean package
-              shell: bash
+  cron-workflow-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Cron Workflow!"

@@ -1,0 +1,22 @@
+name: pull-request-workflow
+
+on:
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  workflow-job:
+    name: Run on Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - name: before checkout action
+        run: ls
+        shell: bash
+
+      - name: checkout steps 
+        uses: actions/checkout@v4
+              
+      - name: after checkout action
+        run: ls
+        shell: bash

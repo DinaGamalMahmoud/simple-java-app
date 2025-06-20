@@ -1,0 +1,18 @@
+name: ci-test
+on:
+  pull_request:
+    branches:
+      - 'main'
+jobs:
+  workflow:
+   - name: ci-part
+     runs-on: ubuntu-latest
+     steps:
+      - name: checkingout
+        uses: actions/checkout@v4
+      - name: building
+        run: "mvn clean package"
+        shell: bash 
+      - name: testing
+        run: "mvn test"
+        shell: bash 

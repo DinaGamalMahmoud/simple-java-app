@@ -5,7 +5,7 @@ on:
       - 'main'
 jobs:
   workflow:
-   - name: ci-part
+     name: ci-part
      runs-on: ubuntu-latest
      steps:
       - name: checkingout

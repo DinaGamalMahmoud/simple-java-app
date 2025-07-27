@@ -1,37 +1,36 @@
 pipeline{
-    agent{
-        label 'aws-agent'
+  agent {
+    label 'aws-agent'
+  }
+  stages{
+    stage('build'){
+      steps{
+        script{
+          sh'mvn clean package'
+        }
+      }
     }
-    stages{
-        stage('build'){
-            steps{
-                script{
-                    sh 'docker build -t java-app .'
-                }
-            }
-        }
+  }
 
-        stage('push'){
-            steps{
-                script{
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'Password', usernameVariable: 'Username')]) {
-                    sh 'docker login --username $Username --password $Password'
-                    sh 'docker tag java-app $Username/java-app'
-                    sh 'docker push $Username/java-app'
-                    }
-                }
-            }
+   post {
+        success {
+            slackSend (
+                channel: '#jenkins-ci',
+                color: '#36a64f',
+                message: "✅ Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)",
+                teamDomain: 'first-workplacehq',
+                tokenCredentialId: 'slack-bot-token'
+            )
         }
-
-        stage('deploy'){
-            steps{
-                script{
-                    withAWS(credentials: 'aws-cli', region: 'us-east-2') {
-                    sh 'aws eks update-kubeconfig --region us-east-2 --name eks'
-                    sh 'kubectl apply -f ./k8s/deployment.yaml'
-                    }
-                }
-            }
+        failure {
+            slackSend (
+                channel: '#jenkins-ci',
+                color: '#ff0000',
+                message: "❌ Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)",
+                teamDomain: 'first-workplacehq',
+                tokenCredentialId: 'slack-bot-token'
+            )
         }
     }
+
 }

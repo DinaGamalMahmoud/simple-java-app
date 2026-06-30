@@ -5,10 +5,10 @@ metadata:
   labels:
     app: java-app
 spec:
+  replicas: 3
   selector:
     matchLabels:
-        app: java-app
-  replicas: 1
+      app: java-app
   strategy:
     type: RollingUpdate
   template:
@@ -18,8 +18,7 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: dinagamal/javaapp:latest
+          image: enabdelhamed/solarsystem:3349e045ef767440b43ac272222cd31aca89cf17
           ports:
             - containerPort: 80
-              protocol: TCP
           imagePullPolicy: Always

@@ -1,0 +1,22 @@
+name: Java workflow
+on:
+  push:
+    branches:
+      - 'main'
+
+
+jobs:
+  UnitTesting:
+    name: CI-Workflow
+    runs-on: [self-hosted,linux]
+    steps:
+      - name: Checking Out The Repo
+        uses: actions/checkout@v5
+        
+      - name: Build The Java App
+        run: mvn clean package
+        
+      - name: Run Tests
+        run:  mvn test
+
+    

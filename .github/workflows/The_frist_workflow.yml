@@ -34,4 +34,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: DOCKERHUB_USERNAME/java-app:${{ github.ref_name }}
+          tags: aliabdulhamed/java-app:${{ github.ref_name }}

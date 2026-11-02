@@ -1,31 +1,37 @@
 
-name: List Repository Files
+name: Java App - Build and Push Docker Image
 
 on:
   push:
     branches:
       - main
 
-  workflow_dispatch:
-
 jobs:
-  list-files:
+  build-and-push:
+    name: Build and Push Docker Image
     runs-on: self-hosted
-    container: node:latest
 
     steps:
-      - name: List Files
-        run: |
-          echo "Listing repository files:"
-          ls -lah
-          
-      - name: Checkout Repository
+      # 1. Download repository source code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: List Files
-        run: |
-          echo "Listing repository files:"
-          ls -lah
+      # 2. Configure Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-          echo "Listing all files recursively:"
-          find . -type f
+      # 3. Login to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 4. Build and Push Docker Image
+      - name: Build and Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: DOCKERHUB_USERNAME/java-app:${{ github.ref_name }}

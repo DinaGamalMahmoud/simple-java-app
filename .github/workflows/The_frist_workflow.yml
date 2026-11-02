@@ -11,6 +11,7 @@ on:
 jobs:
   list-files:
     runs-on: self-hosted
+    container: node:latest
 
     steps:
       - name: List Files
